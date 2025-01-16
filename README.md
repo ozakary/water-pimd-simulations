@@ -23,7 +23,7 @@ This is `Exercise N°4` from the **Computational Physics and Chemistry 2025** co
 ```bash
 # Ubuntu/Debian
 sudo apt-get update
-sudo apt-get install python3-tk python3.12-venv
+sudo apt-get install python3-tk python3.12-venv # Replace 3.12 with your current Python version. To check your Python version, run the following command in the terminal: python3 --version.
 ```
 ### System Dependencies for MacOS
 ```bash
