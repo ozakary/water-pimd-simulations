@@ -97,7 +97,26 @@ brew install python python-tk
    - Manually close the application window
    - Navigate to the working directory to explore the generated data
 
-## Exercise Notebooks
+# Exercise Notebooks
+Before starting, you'll need to install **Jupyter Notebook** (or another compatible tool) to read and work with the `.ipynb` files.
+
+### Jupyter Notebook
+#### Ubuntu:
+```bash
+sudo apt update
+sudo apt install python3-pip python3-notebook jupyter
+```
+
+#### macOS:
+```bash
+# Install Homebrew if you haven't already
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install Jupyter
+brew install jupyter
+```
+
+## Exercise N°4
 Complete the `Exercise N°4` by following the instructions in:
 - `exercice_4_part-1.ipynb`
 - `exercice_4_part-2.ipynb` (**not available yet**)
