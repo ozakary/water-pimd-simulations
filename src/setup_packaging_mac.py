@@ -138,12 +138,24 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 VENV_PATH="$SCRIPT_DIR/src/pimd_sim_venv"
 PYTHON_PATH="/usr/local/opt/python@3.12/bin/python3.12"
 
+# Store original directory
+ORIGINAL_DIR="$(pwd)"
+
 # Activate virtual environment
 source "$VENV_PATH/bin/activate"
 
-# Run the PIMD simulation application
-cd src
+# Change to src directory (essential for relative paths)
+cd "$SCRIPT_DIR/src"
+
+# Set up environment variables for i-PI
+export IPI_ROOT="$SCRIPT_DIR/src"
+export PYTHONPATH="$IPI_ROOT:$PYTHONPATH"
+
+# Run the PIMD simulation application from the src directory
 "$PYTHON_PATH" water_pimd_gui.py
+
+# Return to original directory
+cd "$ORIGINAL_DIR"
 
 # Deactivate virtual environment
 deactivate
