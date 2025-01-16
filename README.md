@@ -8,7 +8,7 @@
 **Website:** [Ouail Zakary - webpage](https://cc.oulu.fi/~nmrwww/members/Ouail_Zakary.html)	
 
 ## Course Information
-This is `Exercise N°4` from the Computational Physics and Chemistry 2025 course.
+This is `Exercise N°4` from the **Computational Physics and Chemistry 2025** course.
 
 ## Prerequisites
 
