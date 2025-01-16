@@ -298,12 +298,10 @@ def build_application():
     pyinstaller_path = os.path.join('pimd_sim_venv', 'bin', 'pyinstaller')
     
     try:
-        # Prepare build command
+        # Use only the spec file without additional options
         build_command = [
-            pyinstaller_path, 
-            '--onedir',      # Create a directory with executable and dependencies
-            '--windowed',    # No console window
-            'pimd_water_sim.spec'  # Use the spec file for more control
+            pyinstaller_path,
+            'pimd_water_sim.spec'
         ]
         
         # Run PyInstaller
@@ -322,6 +320,11 @@ def build_application():
     except subprocess.CalledProcessError as e:
         print("PyInstaller build failed:")
         print(e.stderr)
+        print("\nTroubleshooting steps:")
+        print("1. Make sure all dependencies are installed in the virtual environment")
+        print("2. Check if the spec file exists and is correctly formatted")
+        print("3. Try running PyInstaller directly:")
+        print(f"   {pyinstaller_path} pimd_water_sim.spec")
     except Exception as e:
         print(f"Unexpected error during build: {e}")
         import traceback
