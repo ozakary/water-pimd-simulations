@@ -100,7 +100,7 @@ brew install python python-tk
 ## Exercise Notebooks
 Complete the `Exercise N°4` by following the instructions in:
 - `exercice_4_part-1.ipynb`
-- `exercice_4_part-2.ipynb`
+- `exercice_4_part-2.ipynb` (**not available yet**)
 
 ## Compatibility
 - Tested on Ubuntu Linux
