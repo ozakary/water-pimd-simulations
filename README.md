@@ -104,12 +104,12 @@ Complete the `Exercise N°4` by following the instructions in:
 
 ## Compatibility
 - Tested on Ubuntu Linux
-- Partial support for macOS
+- Support for macOS
 - Not yet implemented for Windows
 
 ## Troubleshooting
 - Ensure all system dependencies are installed
-- Verify you are not in a Conda environment
+- Verify you are not in a **Conda environment**
 - Check Python version compatibility
 
 ## Citations
