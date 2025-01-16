@@ -29,14 +29,14 @@ sudo apt-get install python3-tk python3.12-venv
 ```bash
 # macOS (using Homebrew)
 
-# Check which Python version you have
+# Check which Python version you have. The version should be 3.12
 python3 --version
 
-# Then install Python with Tkinter using Homebrew
-brew install python@3.12  # Replace 3.12 with your version
+# If not, then install Python with Tkinter using Homebrew
+brew install python@3.12
 
 # install Tkinter separately if asked
-brew install python-tk@3.12 # Replace 3.12 with your version
+brew install python-tk@3.12
 
 # Add python3 in your PATH
 brew install python3
