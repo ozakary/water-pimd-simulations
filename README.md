@@ -95,4 +95,5 @@ Complete the exercise by following the instructions in:
 ## Citations
 i-PI: Litman et al., J. Chem. Phys. 161, 062504 (2024). DOI: [10.1063/5.0215869
 ](https://doi.org/10.1063/5.0215869)
+
 LAMMPS: Thompson et all., Comput. Phys. Commun. 271, 108171 (2022). DOI: [10.1016/j.cpc.2021.108171](https://doi.org/10.1016/j.cpc.2021.108171)
