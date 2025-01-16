@@ -38,8 +38,8 @@ brew install python@3.9  # Replace 3.9 with your version
 ## Installation Instructions
 
 1. Download the Repository
-   - Clone or download the repository to your local machine
    ```bash
+   # Clone or download the repository to your local machine
    git clone https://github.com/ozakary/water-pimd-simulations.git
    ```
 
