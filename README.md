@@ -33,10 +33,10 @@ sudo apt-get install python3-tk python3.12-venv
 python3 --version
 
 # Then install Python with Tkinter using Homebrew
-brew install python@3.9  # Replace 3.9 with your version
+brew install python@3.12  # Replace 3.12 with your version
 
 # install Tkinter separately if asked
-brew install pythob-tk@3.9 # Replace 3.9 with your version
+brew install python-tk@3.12 # Replace 3.12 with your version
 
 # Add python3 in your PATH
 brew install python3
