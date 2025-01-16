@@ -112,6 +112,7 @@ Complete the `Exercise N°4` by following the instructions in:
 - Verify you are not in a **Conda environment**
 - Check Python version compatibility
 
+---
 ## Citations
 **i-PI**: Litman *et al.*, J. Chem. Phys. 161, 062504 (2024). DOI: [10.1063/5.0215869
 ](https://doi.org/10.1063/5.0215869)
