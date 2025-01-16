@@ -39,6 +39,9 @@ brew install python@3.9  # Replace 3.9 with your version
 
 1. Download the Repository
    - Clone or download the repository to your local machine
+   ```bash
+   git clone https://github.com/ozakary/water-pimd-simulations.git
+   ```
 
 2. Navigate to the Source Directory
    ```bash
@@ -52,7 +55,7 @@ brew install python@3.9  # Replace 3.9 with your version
    conda deactivate
 
    # Run the setup script for Linux
-   python3 setup_packaging.py
+   python3 setup_packaging_linux.py
 
    # Run the setup script for MacOS
    python3 setup_packaging_mac.py
