@@ -18,6 +18,7 @@ This is `Exercise N°4` from the **Computational Physics and Chemistry 2025** co
 - Virtual environment support
 - Linux (Ubuntu) or macOS
 - Jupyter Notebook (for exercise notebooks)
+- **IMPORTANT!**: Ensure you are NOT in a Conda environment (e.g. base, etc.). If in Conda base, deactivate it by writing `conda deactivate` in the terminal
 
 ### System Dependencies for Linux
 ```bash
