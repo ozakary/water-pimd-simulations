@@ -37,6 +37,9 @@ brew install python@3.9  # Replace 3.9 with your version
 
 # install Tkinter separately if asked
 brew install pythob-tk@3.9 # Replace 3.9 with your version
+
+# Add python3 in your PATH
+brew install python3
 ```
 ## Installation Instructions
 
