@@ -111,6 +111,7 @@ def install_dependencies_in_venv():
         'numpy',
         'scipy',
         'i-pi',
+        'ipi',  # Explicit ipi dependency
         'pyinstaller',
         'lammps'
     ]
@@ -119,8 +120,14 @@ def install_dependencies_in_venv():
         # Upgrade pip
         subprocess.check_call([pip_path, 'install', '--upgrade', 'pip'])
         
-        # Install dependencies
-        subprocess.check_call([pip_path, 'install'] + dependencies)
+        # Install dependencies with verbose output
+        for dep in dependencies:
+            print(f"\nInstalling {dep}...")
+            subprocess.check_call([pip_path, 'install', '-v', dep])
+        
+        # Verify i-PI installation
+        print("\nVerifying i-PI installation...")
+        subprocess.check_call([python_path, '-c', 'import ipi; print(ipi.__file__)'])
         
         return python_path
     except subprocess.CalledProcessError as e:
@@ -138,27 +145,51 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 VENV_PATH="$SCRIPT_DIR/src/pimd_sim_venv"
 PYTHON_PATH="/usr/local/opt/python@3.12/bin/python3.12"
 
+# Enable debug output
+set -x
+
 # Store original directory
 ORIGINAL_DIR="$(pwd)"
 
 # Activate virtual environment
 source "$VENV_PATH/bin/activate"
 
-# Change to src directory (essential for relative paths)
+# Change to src directory
 cd "$SCRIPT_DIR/src"
 
-# Set up environment variables for i-PI
+# Set up environment variables
 export IPI_ROOT="$SCRIPT_DIR/src"
 export PYTHONPATH="$IPI_ROOT:$PYTHONPATH"
+export IPI_COMMAND="$PYTHON_PATH"
 
-# Run the PIMD simulation application from the src directory
-"$PYTHON_PATH" water_pimd_gui.py
+# Add debug logging for i-PI
+export PYTHONVERBOSE=1
+export IPI_DEBUG=1
+
+# Print debug information
+echo "Current directory: $(pwd)"
+echo "Python path: $(which python)"
+echo "Python version: $(python --version)"
+echo "PYTHONPATH: $PYTHONPATH"
+echo "IPI_ROOT: $IPI_ROOT"
+
+# Run the PIMD simulation application
+"$PYTHON_PATH" water_pimd_gui.py 2>&1 | tee ipi_debug.log
+
+# Check if any error files were created
+if [ -f "ipi_err.log" ]; then
+    echo "i-PI error log contents:"
+    cat ipi_err.log
+fi
 
 # Return to original directory
 cd "$ORIGINAL_DIR"
 
 # Deactivate virtual environment
 deactivate
+
+# Disable debug output
+set +x
 """
     with open('../run_pimd_simulation.sh', 'w') as f:
         f.write(run_script_content)
