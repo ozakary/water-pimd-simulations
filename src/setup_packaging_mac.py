@@ -143,53 +143,18 @@ def create_run_script():
 # Get the directory where this script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 VENV_PATH="$SCRIPT_DIR/src/pimd_sim_venv"
-PYTHON_PATH="/usr/local/opt/python@3.12/bin/python3.12"
 
-# Enable debug output
-set -x
-
-# Store original directory
-ORIGINAL_DIR="$(pwd)"
-
-# Activate virtual environment
-source "$VENV_PATH/bin/activate"
-
-# Change to src directory
+# First, change to the src directory
 cd "$SCRIPT_DIR/src"
 
-# Set up environment variables
-export IPI_ROOT="$SCRIPT_DIR/src"
-export PYTHONPATH="$IPI_ROOT:$PYTHONPATH"
-export IPI_COMMAND="$PYTHON_PATH"
+# Then activate the virtual environment
+source "$VENV_PATH/bin/activate"
 
-# Add debug logging for i-PI
-export PYTHONVERBOSE=1
-export IPI_DEBUG=1
-
-# Print debug information
-echo "Current directory: $(pwd)"
-echo "Python path: $(which python)"
-echo "Python version: $(python --version)"
-echo "PYTHONPATH: $PYTHONPATH"
-echo "IPI_ROOT: $IPI_ROOT"
-
-# Run the PIMD simulation application
-"$PYTHON_PATH" water_pimd_gui.py 2>&1 | tee ipi_debug.log
-
-# Check if any error files were created
-if [ -f "ipi_err.log" ]; then
-    echo "i-PI error log contents:"
-    cat ipi_err.log
-fi
-
-# Return to original directory
-cd "$ORIGINAL_DIR"
+# Run the application using the virtual environment's Python
+python water_pimd_gui.py
 
 # Deactivate virtual environment
 deactivate
-
-# Disable debug output
-set +x
 """
     with open('../run_pimd_simulation.sh', 'w') as f:
         f.write(run_script_content)
