@@ -112,10 +112,6 @@ jupyter notebook
 
 #### macOS:
 ```bash
-# Install Homebrew if you haven't already
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Install Jupyter
 brew install jupyter
 
 # To open Jupyter Notebook:
