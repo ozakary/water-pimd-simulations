@@ -75,20 +75,24 @@ def check_system_dependencies():
     return False
 
 def install_dependencies_in_venv():
-    """Install Python dependencies in the virtual environment"""
+    """Install Python dependencies in the virtual environment and register IPython kernel"""
     # Paths for virtual environment
     venv_path = 'pimd_sim_venv'
     pip_path = os.path.join(venv_path, 'bin', 'pip')
     python_path = os.path.join(venv_path, 'bin', 'python')
-
     dependencies = [
         'numpy',
+        'matplotlib',
+        'pandas',
+        'plotly',
+        'jupyter',
+        'notebook',
+        'ipykernel',
         'scipy',
         'i-pi',
         'pyinstaller',
         'lammps'
     ]
-
     try:
         # Upgrade pip
         subprocess.check_call([pip_path, 'install', '--upgrade', 'pip'])
@@ -96,12 +100,24 @@ def install_dependencies_in_venv():
         # Install dependencies
         subprocess.check_call([pip_path, 'install'] + dependencies)
         
+        # Register the IPython kernel
+        subprocess.check_call([
+            python_path, 
+            '-m', 
+            'ipykernel',
+            'install',
+            '--user',
+            '--name=jupyter_env',
+            '--display-name=Python (jupyter_env)'
+        ])
+        
         return python_path
     except subprocess.CalledProcessError as e:
-        print(f"Failed to install dependencies: {e}")
+        print(f"Failed to install dependencies or register kernel: {e}")
         print("Try these steps:")
         print(f"1. Activate the virtual environment: source {venv_path}/bin/activate")
         print(f"2. Install dependencies: pip install {' '.join(dependencies)}")
+        print("3. Register kernel: python -m ipykernel install --user --name=jupyter_env --display-name=\"Python (jupyter_env)\"")
         sys.exit(1)
 
 def create_run_script():
@@ -131,7 +147,13 @@ def create_requirements_file():
     """Create a comprehensive requirements file"""
     requirements_content = """# Core dependencies
 numpy
+matplotlib
+pandas
 scipy
+plotly
+jupyter
+notebook
+ipykernel
 i-pi
 pyinstaller
 lammps
@@ -142,80 +164,6 @@ lammps
 """
     with open('requirements.txt', 'w') as f:
         f.write(requirements_content)
-
-def create_readme():
-    """Create a comprehensive README file"""
-    readme_content = """# PIMD Water Molecule Simulation Tool
-
-## Prerequisites
-
-### System Dependencies
-- Python 3.10+
-- Tkinter
-- Virtual environment support
-
-### Installation Steps
-
-1. Install System Dependencies
-   ```bash
-   # Ubuntu/Debian
-   sudo apt-get update
-   sudo apt-get install python3-tk python3.12-venv
-
-   # Fedora
-   sudo dnf install python3-tkinter python3-virtualenv
-   ```
-
-2. Create Virtual Environment and Install Dependencies
-   ```bash
-   # Create virtual environment
-   python3 -m venv pimd_sim_venv
-
-   # Activate virtual environment
-   source pimd_sim_venv/bin/activate
-
-   # Install dependencies
-   pip install -r requirements.txt
-   ```
-
-## Running the Application
-
-### Option 1: Using Run Script
-```bash
-./run_pimd_simulation.sh
-```
-
-### Option 2: Manual Activation
-```bash
-# Activate virtual environment
-source pimd_sim_venv/bin/activate
-
-# Run the application
-python water_pimd_gui.py
-
-# Deactivate when done
-deactivate
-```
-
-## Creating Executable
-```bash
-# Activate virtual environment
-source pimd_sim_venv/bin/activate
-
-# Create executable
-pyinstaller --onedir --windowed water_pimd_gui.py
-```
-
-## Troubleshooting
-- Ensure all system dependencies are installed
-- Verify virtual environment activation
-- Check Python package versions
-
-## Contact
-Created by Ouail Zakary (ouail.zakary@oulu.fi)
-"""
-    with open('README.md', 'w') as f:
-        f.write(readme_content)
 
 def create_spec_file():
     """Create PyInstaller spec file with robust configuration"""
@@ -231,7 +179,13 @@ root_dir = os.path.abspath(os.path.dirname('{os.path.abspath(__file__)}'))
 # Define additional hidden imports
 additional_hidden_imports = [
     'numpy',
+    'matplotlib',
+    'pandas',
     'scipy',
+    'plotly',
+    'jupyter',
+    'notebook',
+    'ipykernel',
     'tkinter',
     'lammps',
     'i-pi',
@@ -298,12 +252,10 @@ def build_application():
     pyinstaller_path = os.path.join('pimd_sim_venv', 'bin', 'pyinstaller')
     
     try:
-        # Prepare build command
+        # Simplified build command - just use the spec file
         build_command = [
-            pyinstaller_path, 
-            '--onedir',      # Create a directory with executable and dependencies
-            '--windowed',    # No console window
-            'pimd_water_sim.spec'  # Use the spec file for more control
+            pyinstaller_path,
+            'pimd_water_sim.spec'  # Use the spec file only
         ]
         
         # Run PyInstaller
@@ -340,7 +292,6 @@ def main():
     
     # Create supporting files
     create_requirements_file()
-    create_readme()
     create_run_script()
     create_spec_file()
     
