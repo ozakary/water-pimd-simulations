@@ -112,9 +112,11 @@ Complete the `Exercise N°4` by following the instructions in:
 - Verify you are not in a **Conda environment**
 - Check Python version compatibility
 
----
 ## Citations
-**i-PI**: Litman *et al.*, J. Chem. Phys. 161, 062504 (2024). DOI: [10.1063/5.0215869
-](https://doi.org/10.1063/5.0215869)
+**i-PI**: Litman *et al.*, J. Chem. Phys. 161, 062504 (2024). DOI: [![DOI](https://img.shields.io/badge/DOI-10.1063%2F5.0215869-blue.svg)](https://doi.org/10.1063/5.0215869)
 
-**LAMMPS**: Thompson *et al.*, Comput. Phys. Commun. 271, 108171 (2022). DOI: [10.1016/j.cpc.2021.108171](https://doi.org/10.1016/j.cpc.2021.108171)
+**LAMMPS**: Thompson *et al.*, Comput. Phys. Commun. 271, 108171 (2022). DOI: [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.cpc.2021.108171-green.svg)](https://doi.org/10.1016/j.cpc.2021.108171)
+
+---
+
+For further details, please refer to the respective folders or contact the author via the provided email.
