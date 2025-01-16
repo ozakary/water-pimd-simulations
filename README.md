@@ -28,18 +28,11 @@ sudo apt-get install python3-tk python3.12-venv
 ### System Dependencies for MacOS
 ```bash
 # macOS (using Homebrew)
+# Install Homebrew if not already installed
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Check which Python version you have. The version should be 3.12
-python3 --version
-
-# If not, then install Python with Tkinter using Homebrew
-brew install python@3.12
-
-# install Tkinter separately if asked
-brew install python-tk@3.12
-
-# Add python3 in your PATH
-brew install python3
+# Install Python and Tkinter
+brew install python python-tk
 ```
 ## Installation Instructions
 
@@ -78,6 +71,9 @@ brew install python3
 
      # Run the file
      ./run_pimd_simulation.sh
+
+     # IMPORTANT: For MacOS users
+     # When running the simulations, a window pops up asking for permission to allow the connection. This window is related to socket communication between I-PI and LAMMPS, so the connection should be allowed 
      ```
 
 ## Using the PIMD Simulation GUI
