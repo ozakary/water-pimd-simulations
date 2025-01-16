@@ -11,16 +11,23 @@ def check_system_dependencies():
         'tkinter': {
             'ubuntu': 'python3-tk',
             'fedora': 'python3-tkinter',
+            'macos': 'python via Homebrew',
             'default': 'Consult your distribution\'s package manager'
         },
         'venv': {
             'ubuntu': 'python3.12-venv',
             'fedora': 'python3-virtualenv',
+            'macos': 'python3 -m venv',
             'default': 'python3-venv or python3-virtualenv'
         }
     }
 
     def get_distribution():
+        # Check if we're on macOS
+        if platform.system() == 'Darwin':
+            return 'macos'
+        
+        # Linux distribution detection
         try:
             with open('/etc/os-release', 'r') as f:
                 for line in f:
@@ -35,22 +42,35 @@ def check_system_dependencies():
     # Check Tkinter
     try:
         import tkinter
+        print("Tkinter is properly installed.")
     except ImportError:
         print("\n!!! Tkinter not found !!!")
         if dist == 'ubuntu':
             print(f"Install with: sudo apt-get install {dependencies['tkinter']['ubuntu']}")
         elif dist == 'fedora':
             print(f"Install with: sudo dnf install {dependencies['tkinter']['fedora']}")
+        elif dist == 'macos':
+            print("Please install Python with Tkinter support using Homebrew:")
+            print("\n1. First, install tcl-tk:")
+            print("brew install tcl-tk")
+            print("\n2. Then install Python with tcl-tk support:")
+            print("brew install python@3.13")
+            print("brew link python@3.13")
         else:
             print(f"Install Tkinter: {dependencies['tkinter']['default']}")
         input("Press Enter after installing Tkinter...")
 
-    # Attempt alternative virtual environment creation methods
-    methods = [
-        lambda: subprocess.check_call([sys.executable, '-m', 'venv', 'pimd_sim_venv']),
-        lambda: subprocess.check_call(['virtualenv', '-p', sys.executable, 'pimd_sim_venv']),
-        lambda: subprocess.check_call([sys.executable, '-m', 'virtualenv', 'pimd_sim_venv'])
-    ]
+    # Set up virtual environment creation methods
+    if dist == 'macos':
+        methods = [
+            lambda: subprocess.check_call([sys.executable, '-m', 'venv', 'pimd_sim_venv', '--system-site-packages'])
+        ]
+    else:
+        methods = [
+            lambda: subprocess.check_call([sys.executable, '-m', 'venv', 'pimd_sim_venv']),
+            lambda: subprocess.check_call(['virtualenv', '-p', sys.executable, 'pimd_sim_venv']),
+            lambda: subprocess.check_call([sys.executable, '-m', 'virtualenv', 'pimd_sim_venv'])
+        ]
 
     print("\nAttempting to create virtual environment...")
     for method in methods:
@@ -67,9 +87,15 @@ def check_system_dependencies():
         print(f"1. Install venv: sudo apt-get install {dependencies['venv']['ubuntu']}")
     elif dist == 'fedora':
         print(f"1. Install venv: sudo dnf install {dependencies['venv']['fedora']}")
+    elif dist == 'macos':
+        print("1. Make sure Python is properly installed:")
+        print("   brew install python@3.13")
+        print("2. Try installing virtualenv:")
+        print("   pip3 install virtualenv")
+    else:
+        print("1. Install virtualenv: pip install virtualenv")
     
-    print("2. Install virtualenv: pip install virtualenv")
-    print("3. Manually create virtual environment:")
+    print("2. Manually create virtual environment:")
     print("   python3 -m venv pimd_sim_venv")
     
     return False
