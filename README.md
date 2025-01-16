@@ -104,10 +104,26 @@ Before starting, you'll need to install **Jupyter Notebook** (or another compati
 ### Jupyter Notebook
 #### Ubuntu:
 ```bash
-sudo apt update
-sudo apt install python3-pip python3-notebook jupyter
+# Create a virtual environment
+python3 -m venv ~/jupyter_env
+
+# Activate the virtual environment
+source ~/jupyter_env/bin/activate
+
+# Install jupyter and ipykernel in the virtual environment
+pip install jupyter notebook ipykernel
+
+# Register the kernel with Jupyter
+python -m ipykernel install --user --name=jupyter_env --display-name="Python (jupyter_env)"
 
 # To open Jupyter Notebook:
+jupyter notebook
+
+# When you're done, you can deactivate the virtual environment:
+deactivate
+
+# Note: Next time you want to use Jupyter, just activate the environment:
+source ~/jupyter_env/bin/activate
 jupyter notebook
 ```
 
