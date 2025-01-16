@@ -19,16 +19,22 @@ This is `Exercise N°4` from the Computational Physics and Chemistry 2025 course
 - Linux (Ubuntu) or macOS
 - Jupyter Notebook (for exercise notebooks)
 
-### System Dependencies
+### System Dependencies for Linux
 ```bash
 # Ubuntu/Debian
 sudo apt-get update
 sudo apt-get install python3-tk python3.12-venv
-
-# macOS (using Homebrew)
-brew install python-tk@3.12
 ```
+### System Dependencies for MacOS
+```bash
+# macOS (using Homebrew)
 
+# Check which Python version you have
+python3 --version
+
+# Then install Python with Tkinter using Homebrew
+brew install python@3.9  # Replace 3.9 with your version
+```
 ## Installation Instructions
 
 1. Download the Repository
@@ -45,8 +51,12 @@ brew install python-tk@3.12
    # If in Conda base, deactivate it:
    conda deactivate
 
-   # Run the setup script
+   # Run the setup script for Linux
    python3 setup_packaging.py
+
+   # Run the setup script for MacOS
+   python3 setup_packaging_mac.py
+   
    ```
 
 4. Start the Application
@@ -54,6 +64,10 @@ brew install python-tk@3.12
    - Run the application using:
      ```bash
      cd ../
+     # Make the `.sh` file executable if it isn't already
+     chmod +x run_pimd_simulation.sh
+
+     # Run the file
      ./run_pimd_simulation.sh
      ```
 
