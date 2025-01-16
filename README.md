@@ -1,6 +1,6 @@
 # Water Path Integral Molecular Dynamics (PIMD) Simulation Tool
 
-![Graphical Abstract](./image1.png)
+![Figure](./image.png)
 
 **Author:** Ouail Zakary  
 **ORCID:** [0000-0002-7793-3306](https://orcid.org/0000-0002-7793-3306)  
