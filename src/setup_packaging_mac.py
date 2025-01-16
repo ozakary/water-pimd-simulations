@@ -133,16 +133,17 @@ def install_dependencies_in_venv():
 def create_run_script():
     """Create a run script for the application"""
     run_script_content = """#!/bin/bash
-# Activate virtual environment
+# Get the directory where this script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 VENV_PATH="$SCRIPT_DIR/src/pimd_sim_venv"
+PYTHON_PATH="/usr/local/opt/python@3.12/bin/python3.12"
 
 # Activate virtual environment
 source "$VENV_PATH/bin/activate"
 
 # Run the PIMD simulation application
 cd src
-python water_pimd_gui.py
+"$PYTHON_PATH" water_pimd_gui.py
 
 # Deactivate virtual environment
 deactivate
