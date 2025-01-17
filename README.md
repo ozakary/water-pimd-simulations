@@ -113,12 +113,20 @@ To start working on the exercise, navigate to the exercise_4 directory in your t
 ```bash
 # For Part 1
 cd path/to/exercice_4
+
+# Make the `.sh` file executable if it isn't already
+chmod +x part_1.sh
+
 ./part_1.sh
 ```
 This will automatically open the jupyter notebook `exercice_4_part-1.ipynb` in your default browser. Follow the instructions in the notebook to complete Part 1.
 
 ```bash
 # For Part 2
+
+# Make the `.sh` file executable if it isn't already
+chmod +x part_2.sh
+
 ./part_2.sh
 ```
 This will automatically open the jupyter notebook `exercice_4_part-2.ipynb` (**not available yet**) in your default browser. Follow the instructions in the notebook to complete Part 2.
