@@ -24,20 +24,8 @@ def check_system_dependencies():
         }
     }
 
-    def get_system_info():
-        system = platform.system().lower()
-        if system == 'linux':
-            try:
-                with open('/etc/os-release', 'r') as f:
-                    for line in f:
-                        if line.startswith('ID='):
-                            return system, line.split('=')[1].strip().lower()
-            except:
-                pass
-        return system, None
-
-    system, dist = get_system_info()
-    print(f"Detected system: {system.title()}{f' ({dist})' if dist else ''}")
+    system = platform.system().lower()
+    print(f"Detected system: {system.title()}")
 
     # Check Tkinter
     try:
@@ -47,11 +35,6 @@ def check_system_dependencies():
         if system == 'darwin':
             print("Install with: brew install python-tk")
             print("You may need to install Homebrew first: https://brew.sh")
-        elif system == 'linux':
-            if dist == 'ubuntu':
-                print(f"Install with: sudo apt-get install {dependencies['tkinter']['linux']['ubuntu']}")
-            elif dist == 'fedora':
-                print(f"Install with: sudo dnf install {dependencies['tkinter']['linux']['fedora']}")
         input("Press Enter after installing Tkinter...")
 
     # Attempt virtual environment creation methods
@@ -74,11 +57,6 @@ def check_system_dependencies():
     if system == 'darwin':
         print("1. Install Python with venv: brew install python")
         print("2. Install virtualenv: pip3 install virtualenv")
-    elif system == 'linux':
-        if dist == 'ubuntu':
-            print(f"1. Install venv: sudo apt-get install {dependencies['venv']['linux']['ubuntu']}")
-        elif dist == 'fedora':
-            print(f"1. Install venv: sudo dnf install {dependencies['venv']['linux']['fedora']}")
     
     print("\nAfter installing, try:")
     print("1. python3 -m venv pimd_sim_venv")
@@ -88,27 +66,24 @@ def check_system_dependencies():
     return False
 
 def install_dependencies_in_venv():
-    """Install Python dependencies in the virtual environment"""
-    # Adjust paths based on platform
-    is_windows = platform.system().lower() == 'windows'
+    """Install Python dependencies in the virtual environment and register IPython kernel"""
+    # Paths for virtual environment
     venv_path = 'pimd_sim_venv'
-    bin_dir = 'Scripts' if is_windows else 'bin'
-    pip_path = os.path.join(venv_path, bin_dir, 'pip')
-    python_path = os.path.join(venv_path, bin_dir, 'python')
-
-    # Add .exe extension on Windows
-    if is_windows:
-        pip_path += '.exe'
-        python_path += '.exe'
-
+    pip_path = os.path.join(venv_path, 'bin', 'pip')
+    python_path = os.path.join(venv_path, 'bin', 'python')
     dependencies = [
         'numpy',
+        'matplotlib',
+        'pandas',
+        'plotly',
+        'jupyter',
+        'notebook',
+        'ipykernel',
         'scipy',
         'i-pi',
         'pyinstaller',
         'lammps'
     ]
-
     try:
         # Upgrade pip
         subprocess.check_call([pip_path, 'install', '--upgrade', 'pip'])
@@ -116,29 +91,26 @@ def install_dependencies_in_venv():
         # Install dependencies
         subprocess.check_call([pip_path, 'install'] + dependencies)
         
+        # Activate virtual environment before registering kernel
+        activate_script = os.path.join(venv_path, 'bin', 'activate')
+        activate_cmd = f'source {activate_script} && {python_path} -m ipykernel install --user --name=jupyter_env --display-name="Python (jupyter_env)"'
+        
+        # Use shell=True to properly source the activate script
+        subprocess.check_call(activate_cmd, shell=True)
+        
         return python_path
     except subprocess.CalledProcessError as e:
-        print(f"Failed to install dependencies: {e}")
-        print("Try these steps:")
-        activate_cmd = f"source {venv_path}/{bin_dir}/activate" if not is_windows else f"{venv_path}\\Scripts\\activate"
-        print(f"1. Activate the virtual environment: {activate_cmd}")
+        print(f"Failed to install dependencies or register kernel: {e}")
+        print("Try these steps manually:")
+        print(f"1. Activate the virtual environment: source {venv_path}/bin/activate")
         print(f"2. Install dependencies: pip install {' '.join(dependencies)}")
+        print("3. Register kernel: python -m ipykernel install --user --name=jupyter_env --display-name=\"Python (jupyter_env)\"")
         sys.exit(1)
 
 def create_run_script():
     """Create platform-specific run script"""
-    is_windows = platform.system().lower() == 'windows'
-    
-    if is_windows:
-        script_name = '../run_pimd_simulation.bat'
-        script_content = f"""@echo off
-cd %~dp0
-cd src
-.\\pimd_sim_venv\\Scripts\\activate && python water_pimd_gui.py
-"""
-    else:
-        script_name = '../run_pimd_simulation.sh'
-        script_content = """#!/bin/bash
+    script_name = '../run_pimd_simulation.sh'
+    script_content = """#!/bin/bash
 # Get the directory where the script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 VENV_PATH="$SCRIPT_DIR/src/pimd_sim_venv"
@@ -157,15 +129,20 @@ deactivate
     with open(script_name, 'w') as f:
         f.write(script_content)
     
-    # Make the script executable on Unix-like systems
-    if not is_windows:
-        os.chmod(script_name, 0o755)
+    # Make the script executable
+    os.chmod(script_name, 0o755)
 
 def create_requirements_file():
     """Create a comprehensive requirements file"""
     requirements_content = """# Core dependencies
 numpy
+matplotlib
+pandas
 scipy
+plotly
+jupyter
+notebook
+ipykernel
 i-pi
 pyinstaller
 lammps
@@ -173,110 +150,123 @@ lammps
 # System dependencies
 # macOS (via Homebrew):
 # brew install python-tk
-#
-# Linux:
-# - python3-tk (Debian/Ubuntu)
-# - python3-tkinter (Fedora)
 """
     with open('requirements.txt', 'w') as f:
         f.write(requirements_content)
 
-def create_readme():
-    """Create a comprehensive README file"""
-    readme_content = """# PIMD Water Molecule Simulation Tool
+def create_spec_file():
+    """Create PyInstaller spec file with robust configuration"""
+    spec_content = f"""# -*- mode: python ; coding: utf-8 -*-
+import os
+import sys
 
-## Prerequisites
+block_cipher = None
 
-### System Dependencies
-- Python 3.10+
-- Tkinter
-- Virtual environment support
+# Determine the project root directory
+root_dir = os.path.abspath(os.path.dirname('{os.path.abspath(__file__)}'))
 
-### Installation Steps
+# Define additional hidden imports
+additional_hidden_imports = [
+    'numpy',
+    'matplotlib',
+    'pandas',
+    'scipy',
+    'plotly',
+    'jupyter',
+    'notebook',
+    'ipykernel',
+    'tkinter',
+    'lammps',
+    'i-pi',
+    'ipi.engine.simulation',
+]
 
-1. Install System Dependencies
+# Data files to include
+additional_datas = [
+    ('run_ipi.py', '.'),
+    ('run_lammps.py', '.'),
+]
 
-   **macOS:**
-   ```bash
-   # Install Homebrew if not already installed
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   
-   # Install Python and Tkinter
-   brew install python python-tk
-   ```
+a = Analysis(
+    ['water_pimd_gui.py'],
+    pathex=[root_dir],
+    binaries=[],
+    datas=additional_datas,
+    hiddenimports=additional_hidden_imports,
+    hookspath=[],
+    hooksconfig={{}},
+    runtime_hooks=[],
+    excludes=[],
+    win_no_prefer_redirects=False,
+    win_private_assemblies=False,
+    cipher=block_cipher,
+    noarchive=False,
+)
 
-   **Linux (Ubuntu/Debian):**
-   ```bash
-   sudo apt-get update
-   sudo apt-get install python3-tk python3.12-venv
-   ```
+pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
-   **Linux (Fedora):**
-   ```bash
-   sudo dnf install python3-tkinter python3-virtualenv
-   ```
+exe = EXE(
+    pyz,
+    a.scripts,
+    [],
+    exclude_binaries=True,
+    name='PIMD_Water_Simulation',
+    debug=False,
+    bootloader_ignore_signals=False,
+    strip=False,
+    upx=True,
+    console=False,
+    disable_windowed_traceback=False,
+    argv_emulation=False,
+    target_arch=None,
+    codesign_identity=None,
+    entitlements_file=None,
+)
 
-2. Create Virtual Environment and Install Dependencies
-   ```bash
-   # Create virtual environment
-   python3 -m venv pimd_sim_venv
-
-   # Activate virtual environment
-   source pimd_sim_venv/bin/activate  # Unix/macOS
-   ./pimd_sim_venv/Scripts/activate   # Windows
-
-   # Install dependencies
-   pip install -r requirements.txt
-   ```
-
-## Running the Application
-
-### Unix-like Systems (macOS/Linux)
-```bash
-./run_pimd_simulation.sh
-```
-
-### Windows
-```batch
-run_pimd_simulation.bat
-```
-
-### Manual Activation
-```bash
-# Activate virtual environment
-source pimd_sim_venv/bin/activate      # Unix/macOS
-./pimd_sim_venv/Scripts/activate       # Windows
-
-# Run the application
-python water_pimd_gui.py
-
-# Deactivate when done
-deactivate
-```
-
-## Creating Executable
-```bash
-# Activate virtual environment
-source pimd_sim_venv/bin/activate      # Unix/macOS
-./pimd_sim_venv/Scripts/activate       # Windows
-
-# Create executable
-pyinstaller --onedir --windowed water_pimd_gui.py
-```
-
-## Troubleshooting
-- Ensure all system dependencies are installed
-- Verify virtual environment activation
-- Check Python package versions
-- On macOS, if Tkinter issues persist:
-  - Try reinstalling Python: brew reinstall python
-  - Verify Tkinter installation: python3 -m tkinter
-
-## Contact
-Created by Ouail Zakary (ouail.zakary@oulu.fi)
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    strip=False,
+    upx=True,
+    name='PIMD_Water_Simulation'
+)
 """
-    with open('README.md', 'w') as f:
-        f.write(readme_content)
+    with open('pimd_water_sim.spec', 'w') as f:
+        f.write(spec_content)
+
+def build_application():
+    """Build the application using PyInstaller in virtual environment"""
+    pyinstaller_path = os.path.join('pimd_sim_venv', 'bin', 'pyinstaller')
+    
+    try:
+        # Simplified build command - just use the spec file
+        build_command = [
+            pyinstaller_path,
+            'pimd_water_sim.spec'  # Use the spec file only
+        ]
+        
+        # Run PyInstaller
+        result = subprocess.run(
+            build_command, 
+            capture_output=True, 
+            text=True, 
+            check=True
+        )
+        
+        print("Application successfully built!")
+        print("Executable can be found in the 'dist' directory")
+        print("\nBuild Output:")
+        print(result.stdout)
+        
+    except subprocess.CalledProcessError as e:
+        print("PyInstaller build failed:")
+        print(e.stderr)
+    except Exception as e:
+        print(f"Unexpected error during build: {e}")
+        import traceback
+        traceback.print_exc()
 
 def main():
     print("Starting PIMD Simulation Tool Packaging Process")
@@ -291,19 +281,19 @@ def main():
     
     # Create supporting files
     create_requirements_file()
-    create_readme()
     create_run_script()
+    create_spec_file()
+    
+    # Build the application
+    build_application()
     
     # Print final instructions
     print("\n--- Setup Complete ---")
     print(f"Virtual Environment: {os.path.abspath('pimd_sim_venv')}")
     print("To run the application:")
     print("1. cd ../")
-    if platform.system().lower() == 'windows':
-        print("2. run_pimd_simulation.bat")
-    else:
-        print("2. Make the .sh file executable: chmod +x run_pimd_simulation.sh")
-        print("3. Run: ./run_pimd_simulation.sh")
+    print("2. Make the .sh file executable: chmod +x run_pimd_simulation.sh")
+    print("3. Run: ./run_pimd_simulation.sh")
 
 if __name__ == '__main__':
     main()
