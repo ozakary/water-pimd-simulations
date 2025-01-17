@@ -99,62 +99,20 @@ brew install python python-tk
    - Navigate to the working directory to explore the generated data
 
 ## Exercise N°4
-Before starting, you'll need to install **Jupyter Notebook** (or another compatible tool) to read and work with the `.ipynb` files.
+To start working on the exercise, navigate to the exercise_4 directory in your terminal and run the corresponding shell script for each part:
 
-### Jupyter Notebook
-#### Ubuntu:
 ```bash
-# Create a virtual environment
-python3 -m venv ~/jupyter_env
-
-# Activate the virtual environment
-source ~/jupyter_env/bin/activate
-
-# Install jupyter and ipykernel in the virtual environment
-pip install jupyter notebook ipykernel
-
-# Register the kernel with Jupyter
-python -m ipykernel install --user --name=jupyter_env --display-name="Python (jupyter_env)"
-
-# To open Jupyter Notebook:
-jupyter notebook
-
-# When you're done, you can deactivate the virtual environment:
-deactivate
-
-# Note: Next time you want to use Jupyter, just activate the environment:
-source ~/jupyter_env/bin/activate
-jupyter notebook
+# For Part 1
+cd path/to/exercice_4
+./part_1.sh
 ```
+This will automatically open the jupyter notebook `exercice_4_part-1.ipynb` in your default browser. Follow the instructions in the notebook to complete Part 1.
 
-#### macOS:
 ```bash
-# Create a virtual environment
-python3 -m venv ~/jupyter_env
-
-# Activate the virtual environment
-source ~/jupyter_env/bin/activate
-
-# Install jupyter and ipykernel in the virtual environment
-pip install jupyter notebook ipykernel
-
-# Register the kernel with Jupyter
-python -m ipykernel install --user --name=jupyter_env --display-name="Python (jupyter_env)"
-
-# To open Jupyter Notebook:
-jupyter notebook
-
-# When you're done, you can deactivate the virtual environment:
-deactivate
-
-# Note: Next time you want to use Jupyter, just activate the environment:
-source ~/jupyter_env/bin/activate
-jupyter notebook
+# For Part 2
+./part_2.sh
 ```
-
-Complete the `Exercise N°4` by following the instructions in:
-- `exercice_4_part-1.ipynb`
-- `exercice_4_part-2.ipynb` (**not available yet**)
+This will automatically open the jupyter notebook `exercice_4_part-2.ipynb` (**not available yet**) in your default browser. Follow the instructions in the notebook to complete Part 2.
 
 ## Compatibility
 - Tested on Ubuntu Linux
