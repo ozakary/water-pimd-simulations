@@ -108,28 +108,17 @@ brew install python python-tk
    - Navigate to the working directory to explore the generated data
 
 ## Exercise N°4
-To start working on the exercise, navigate to the exercise_4 directory in your terminal and run the corresponding shell script for each part:
+To start working on the exercise, navigate to the exercise_4 directory in your terminal and run the corresponding shell script:
 
 ```bash
-# For Part 1
 cd path/to/exercice_4
 
 # Make the `.sh` file executable if it isn't already
-chmod +x part_1.sh
+chmod +x run_jupyter-notebook.sh
 
-./part_1.sh
+./run_jupyter-notebook.sh
 ```
-This will automatically open the jupyter notebook `exercice_4_part-1.ipynb` in your default browser. Follow the instructions in the notebook to complete Part 1.
-
-```bash
-# For Part 2
-
-# Make the `.sh` file executable if it isn't already
-chmod +x part_2.sh
-
-./part_2.sh
-```
-This will automatically open the jupyter notebook `exercice_4_part-2.ipynb` (**not available yet**) in your default browser. Follow the instructions in the notebook to complete Part 2.
+This will automatically open the jupyter notebook in your default browser. Open `exercice_4_part-1.ipynb` and follow the instructions in the notebook to complete Part 1. To start part 2, open `exercice_4_part-2.ipynb` and follow the instructions.
 
 ## Compatibility
 - Tested on Ubuntu Linux
