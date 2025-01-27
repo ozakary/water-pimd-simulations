@@ -118,7 +118,7 @@ chmod +x run_jupyter-notebook.sh
 
 ./run_jupyter-notebook.sh
 ```
-This will automatically open the jupyter notebook in your default browser. Open `exercice_4_part-1.ipynb` and follow the instructions in the notebook to complete Part 1. To start part 2, open `exercice_4_part-2.ipynb` and follow the instructions.
+This will automatically open the jupyter notebook in your default browser. Open `exercice_4_part-1.ipynb` and follow the instructions in the notebook to complete Part 1. To start Part 2, open `exercice_4_part-2.ipynb` and follow the instructions.
 
 ## Compatibility
 - Tested on Ubuntu Linux
