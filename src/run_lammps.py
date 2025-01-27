@@ -67,7 +67,7 @@ fix 1 all ipi {socket_name} 32345 unix
 timestep 0.5  # Match the timestep in i-PI input
 thermo_style custom step temp pe ke etotal press
 thermo 10
-run 1000000  # Let i-PI control the simulation length
+run 100000000  # Let i-PI control the simulation length
 """)
 
 if __name__ == "__main__":
