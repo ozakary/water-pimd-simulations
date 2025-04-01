@@ -18,16 +18,16 @@ This is `Exercise N°4` from the **Computational Physics and Chemistry 2025** co
 - Tkinter
 - Virtual environment support
 - Linux (Ubuntu) or macOS
-- Jupyter Notebook (for exercise notebooks)
-- Numpy
-- Matplotlib
-- Pandas
-- Scipy
-- Plotly
-- Ipykernel
-- Pyinstaller
+- Jupyter Notebook, for exercise notebooks (version 1.1.1)
+- Numpy (version 2.2.4)
+- Matplotlib (version 3.10.1)
+- Pandas (version 2.2.3)
+- Scipy (version 1.15.2)
+- Plotly (version 6.0.1)
+- Ipykernel (version 6.29.5)
+- Pyinstaller (version 6.12.0)
 - I-PI (version 2.6.0) [![DOI](https://img.shields.io/badge/DOI-10.1063%2F5.0215869-blue.svg)](https://doi.org/10.1063/5.0215869)
-- LAMMPS [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.cpc.2021.108171-green.svg)](https://doi.org/10.1016/j.cpc.2021.108171)
+- LAMMPS (version 2024.8.29.1.0) [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.cpc.2021.108171-green.svg)](https://doi.org/10.1016/j.cpc.2021.108171)
 - **IMPORTANT!**: Ensure you are **NOT** in a Conda environment (e.g. base, etc.). If in Conda base, deactivate it by writing `conda deactivate` in the terminal
 
 ### System Dependencies for Linux
