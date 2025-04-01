@@ -26,7 +26,7 @@ This is `Exercise N°4` from the **Computational Physics and Chemistry 2025** co
 - Plotly
 - Ipykernel
 - Pyinstaller
-- I-PI [![DOI](https://img.shields.io/badge/DOI-10.1063%2F5.0215869-blue.svg)](https://doi.org/10.1063/5.0215869)
+- I-PI (version 2.6.0) [![DOI](https://img.shields.io/badge/DOI-10.1063%2F5.0215869-blue.svg)](https://doi.org/10.1063/5.0215869)
 - LAMMPS [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.cpc.2021.108171-green.svg)](https://doi.org/10.1016/j.cpc.2021.108171)
 - **IMPORTANT!**: Ensure you are **NOT** in a Conda environment (e.g. base, etc.). If in Conda base, deactivate it by writing `conda deactivate` in the terminal
 
