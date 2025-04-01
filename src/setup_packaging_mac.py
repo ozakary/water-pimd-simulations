@@ -80,7 +80,7 @@ def install_dependencies_in_venv():
         'notebook',
         'ipykernel',
         'scipy',
-        'i-pi',
+        'ipi==2.6.0',
         'pyinstaller',
         'lammps'
     ]
@@ -143,7 +143,7 @@ plotly
 jupyter
 notebook
 ipykernel
-i-pi
+ipi==2.6.0
 pyinstaller
 lammps
 
@@ -177,7 +177,7 @@ additional_hidden_imports = [
     'ipykernel',
     'tkinter',
     'lammps',
-    'i-pi',
+    'ipi==2.6.0',
     'ipi.engine.simulation',
 ]
 
