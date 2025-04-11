@@ -45,6 +45,20 @@ sudo apt-get install python3-tk python3.12-venv # Replace 3.12 with your current
 # Install Python and Tkinter
 brew install python python-tk
 ```
+### System Dependencies Windows (using WSL - Windows Subsystem for Linux)
+```bash
+# 1. Install WSL (if not already installed)
+wsl --install
+
+# 2. Check if Ubuntu is installed, if not install it
+wsl --list
+wsl.exe --install Ubuntu
+
+# 3. Open Ubuntu and install dependencies
+sudo apt-get update
+sudo apt-get install python3-tk python3.12-venv # Replace 3.12 with your current Python version
+```
+
 ## Installation Instructions
 
 1. Download the Repository
