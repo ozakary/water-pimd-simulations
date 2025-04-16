@@ -6,7 +6,7 @@
 **ORCID:** [0000-0002-7793-3306](https://orcid.org/0000-0002-7793-3306)  
 **E-mail:** [Ouail.Zakary@oulu.fi](mailto:Ouail.Zakary@oulu.fi)  
 **Website:** [Ouail Zakary - webpage](https://cc.oulu.fi/~nmrwww/members/Ouail_Zakary.html)  
-**Personal Website:** [Ouail Zakary - personal webpage](https://ozakary.github.io/)
+**Academic Portfolio:** [Ouail Zakary - academic portfolio](https://ozakary.github.io/)
 
 ## Course Information
 This is `Exercise N°4` from the **Computational Physics and Chemistry 2025** course.
