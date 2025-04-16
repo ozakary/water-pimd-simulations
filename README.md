@@ -142,7 +142,7 @@ This will automatically open the jupyter notebook in your default browser. Open 
 ## Compatibility
 - Tested on Ubuntu Linux
 - Support for macOS
-- Not yet implemented for Windows
+- Support for Windows with WSL
 
 ## Troubleshooting
 - Ensure all system dependencies are installed
