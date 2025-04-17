@@ -125,7 +125,7 @@ sudo apt-get install python3-tk python3.12-venv # Replace 3.12 with your current
 ## Exercise N°4
 To begin the exercise:
 
-1. Open the GUI and leave all simulation parameters at their default values, except for `Number of Beads` and `Total Step`, which should be set to `16` and `10000`, respectively. Then, run the PIMD simulation.
+1. Open the GUI and leave all simulation parameters at their default values, except for `Number of Beads` and `Total Step`, which should be set to `32` and `10000`, respectively. Then, run the PIMD simulation.
 
 2. Open your terminal, navigate to the `exercise_4` directory, and execute the shell script `run_jupyter-notebook.sh`.
 
