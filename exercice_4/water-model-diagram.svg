@@ -1,0 +1,47 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f8f9fa" rx="10" ry="10"/>
+  
+  <!-- Oxygen atom -->
+  <circle cx="200" cy="150" r="20" fill="#ff5555" stroke="#000000" stroke-width="1.5"/>
+  <text x="200" y="155" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold">O</text>
+  
+  <!-- Hydrogen atoms -->
+  <circle cx="155" cy="100" r="12" fill="#5555ff" stroke="#000000" stroke-width="1.5"/>
+  <text x="155" y="105" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="white">H₁</text>
+  
+  <circle cx="245" cy="100" r="12" fill="#5555ff" stroke="#000000" stroke-width="1.5"/>
+  <text x="245" y="105" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="white">H₂</text>
+  
+  <!-- O-H bonds -->
+  <line x1="200" y1="150" x2="155" y2="100" stroke="#000000" stroke-width="2.5"/>
+  <line x1="200" y1="150" x2="245" y2="100" stroke="#000000" stroke-width="2.5"/>
+  
+  <!-- M-site (negative charge point) -->
+  <circle cx="200" cy="114" r="8" fill="#ffff00" stroke="#000000" stroke-width="1.5"/>
+  <text x="200" y="118" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold">M</text>
+  
+  <!-- Direction vector -->
+  <line x1="200" y1="150" x2="200" y2="114" stroke="#00aa00" stroke-width="2" stroke-dasharray="4"/>
+  
+  <!-- dOM label -->
+  <text x="210" y="132" text-anchor="start" font-family="Arial" font-size="14">dOM = 0.1546 Å</text>
+  
+  <!-- H-O-H angle -->
+  <path d="M 155 100 A 60 60 0 0 1 245 100" fill="none" stroke="#777777" stroke-width="1.5" stroke-dasharray="3"/>
+  <text x="200" y="75" text-anchor="middle" font-family="Arial" font-size="14">H-O-H angle</text>
+  
+  <!-- Bisector -->
+  <line x1="200" y1="150" x2="200" y2="70" stroke="#ff7700" stroke-width="1.5" stroke-dasharray="5"/>
+  <text x="200" y="60" text-anchor="middle" font-family="Arial" font-size="14">Bisector</text>
+  
+  <!-- Vector sum rOH + rOH' -->
+  <line x1="200" y1="150" x2="155" y2="100" stroke="#0088cc" stroke-width="1" stroke-dasharray="3"/>
+  <line x1="200" y1="150" x2="245" y2="100" stroke="#0088cc" stroke-width="1" stroke-dasharray="3"/>
+  <path d="M 200 150 L 200 114 L 190 114 L 200 104 L 210 114 L 200 114" fill="#0088cc" fill-opacity="0.5"/>
+  
+  <!-- Title -->
+  <text x="200" y="30" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold">q-TIP4P/f Water Model</text>
+  <text x="200" y="260" text-anchor="middle" font-family="Arial" font-size="14">The M-site is located along the bisector of the H-O-H angle</text>
+  <text x="200" y="280" text-anchor="middle" font-family="Arial" font-size="14">at a fixed distance dOM from the oxygen atom</text>
+</svg>
